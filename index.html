@@ -13,7 +13,9 @@
             return btoa(binString);
         }
         function produceLink(target) {
-            document.getElementById('output').textContent = `Your redirector link is http://alkoclick.space/redirector?${encode(target)}`
+            const link = `http://alkoclick.space/redirector?${encode(target)}`
+            document.getElementById('output').href = link
+            document.getElementById('output').textContent = link
         }
         function consumeLink(input) {
             window.location.href = `https://${decode(input)}`
@@ -32,6 +34,8 @@
     <button onclick="{ produceLink(getElementById('target').value) }">
         Generate link
     </button>
-    <p id="output">Your redirector link is: </p>
+    <p>Your redirector link is: <a id="output"></a></p>
+
+    <p>Read more about this abomination in <a href="https://github.com/alkoclick/redirector">the README</a></p>
 </body>
 </html>
