@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+    <meta charset="UTF-8" />
+    <script>
+        function decode(input) {
+            const binString = atob(input);
+            return new TextDecoder().decode(Uint8Array.from(binString, (m) => m.codePointAt(0)));
+        }
+        function encode(input) {
+            const bytes = new TextEncoder().encode(input.replace("https://", ""))
+            const binString = Array.from(bytes, (x) => String.fromCodePoint(x)).join("");
+            return btoa(binString);
+        }
+        function produceLink(target) {
+            document.getElementById('output').textContent = `Your redirector link is http://localhost:8080?${encode(target)}`
+        }
+        function consumeLink(input) {
+            window.location.href = `https://${decode(input)}`
+        }
+    </script>
+    <script>
+        if (window.location.search.length > 0) {
+            consumeLink(window.location.search.replace("?",""))
+        }
+    </script>
+    <title>Page Redirection</title>
+</head>
+<body>
+    <label for="target">Your target location:</label><br>
+    <input type="text" id="target" name="target"><br>
+    <button onclick="{ produceLink(getElementById('target').value) }">
+        Generate link
+    </button>
+    <p id="output">Your redirector link is: </p>
+</body>
+</html>
