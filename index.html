@@ -13,7 +13,7 @@
             return btoa(binString);
         }
         function produceLink(target) {
-            document.getElementById('output').textContent = `Your redirector link is http://localhost:8080?${encode(target)}`
+            document.getElementById('output').textContent = `Your redirector link is http://alkoclick.space/redirector?${encode(target)}`
         }
         function consumeLink(input) {
             window.location.href = `https://${decode(input)}`
